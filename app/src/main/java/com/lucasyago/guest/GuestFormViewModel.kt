@@ -1,4 +1,10 @@
 package com.lucasyago.guest
 
-class GuestFormViewModel {
+import androidx.lifecycle.ViewModel
+
+class GuestFormViewModel: ViewModel() {
+
+    private val repository = GuestRepository()
+
+
 }
