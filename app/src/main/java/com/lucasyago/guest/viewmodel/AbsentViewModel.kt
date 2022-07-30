@@ -1,4 +1,4 @@
-package com.lucasyago.guest.ui.absent
+package com.lucasyago.guest.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

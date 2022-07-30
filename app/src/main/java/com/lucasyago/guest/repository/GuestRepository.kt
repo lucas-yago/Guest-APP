@@ -1,7 +1,8 @@
-package com.lucasyago.guest
+package com.lucasyago.guest.repository
 
-class GuestRepository {
+class GuestRepository private constructor(){
 
+    //singleton
     companion object {
         private lateinit var repository: GuestRepository
 
@@ -11,7 +12,6 @@ class GuestRepository {
             }
             return repository
         }
-
-
     }
+
 }
