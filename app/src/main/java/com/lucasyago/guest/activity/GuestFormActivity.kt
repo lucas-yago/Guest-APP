@@ -1,10 +1,11 @@
-package com.lucasyago.guest
+package com.lucasyago.guest.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import com.lucasyago.guest.R
 import com.lucasyago.guest.databinding.ActivityGuestFormBinding
 import com.lucasyago.guest.viewmodel.GuestFormViewModel
 
