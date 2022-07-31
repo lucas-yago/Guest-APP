@@ -3,6 +3,7 @@ package com.lucasyago.guest.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
+import com.lucasyago.guest.model.GuestModel
 import com.lucasyago.guest.repository.GuestRepository
 
 class GuestFormViewModel(application: Application) : AndroidViewModel(application) {
@@ -11,5 +12,7 @@ class GuestFormViewModel(application: Application) : AndroidViewModel(applicatio
 
 
 
-
+    fun insert(guest: GuestModel){
+        repository.insert(guest)
+    }
 }
