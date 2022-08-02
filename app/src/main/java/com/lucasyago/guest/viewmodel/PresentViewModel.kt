@@ -12,12 +12,14 @@ class PresentViewModel(application: Application) : AndroidViewModel(application)
     private val repository = GuestRepository.getInstance(application.applicationContext)
 
     private val listPresentGuests = MutableLiveData<List<GuestModel>>()
-    val presentGuests: LiveData<List<GuestModel>> = listPresentGuests
+    val guests: LiveData<List<GuestModel>> = listPresentGuests
 
-
-    fun getPresence(){
-        listPresentGuests.value = repository.getAbsent()
+    fun getPresence() {
+        listPresentGuests.value = repository.getPresence()
     }
 
+    fun delete(id: Int) {
+        repository.delete(id)
+    }
 
 }
