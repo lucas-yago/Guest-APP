@@ -16,7 +16,11 @@ class AllGuestsViewModel(application: Application) : AndroidViewModel(applicatio
     val guests: LiveData<List<GuestModel>> = listAllGuests
 
 
-    fun getAll(){
+    fun getAll() {
         listAllGuests.value = repository.getAll()
+    }
+
+    fun delete(id: Int) {
+        repository.delete(id)
     }
 }
