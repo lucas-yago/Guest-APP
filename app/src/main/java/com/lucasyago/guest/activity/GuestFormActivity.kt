@@ -49,7 +49,6 @@ class GuestFormActivity : AppCompatActivity(), View.OnClickListener {
                 finish()
             }
         }
-
     }
 
     private fun loadData() {

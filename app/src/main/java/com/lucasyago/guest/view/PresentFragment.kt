@@ -13,27 +13,15 @@ import com.lucasyago.guest.viewmodel.PresentViewModel
 class PresentFragment : Fragment() {
 
     private var _binding: FragmentPresentBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val viewModel =
-            ViewModelProvider(this).get(PresentViewModel::class.java)
-
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, b: Bundle?): View {
+        val viewModel = ViewModelProvider(this)[PresentViewModel::class.java]
         _binding = FragmentPresentBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
-        val textView: TextView = binding.textPresent
-        viewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
-        return root
+
+
+        return binding.root
     }
 
     override fun onDestroyView() {

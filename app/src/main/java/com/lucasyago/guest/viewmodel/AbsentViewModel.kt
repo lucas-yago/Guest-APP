@@ -1,13 +1,25 @@
 package com.lucasyago.guest.viewmodel
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import com.lucasyago.guest.model.GuestModel
+import com.lucasyago.guest.repository.GuestRepository
 
-class AbsentViewModel : ViewModel() {
+class AbsentViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is absent Fragment"
+    private val repository = GuestRepository.getInstance(application.applicationContext)
+
+    private val listAbsentGuests = MutableLiveData<List<GuestModel>>()
+    val guests: LiveData<List<GuestModel>> = listAbsentGuests
+
+
+    fun getAbsent(){
+        listAbsentGuests.value = repository.getAbsent()
     }
-    val text: LiveData<String> = _text
+    fun delete(id: Int) {
+        repository.delete(id)
+    }
+
 }

@@ -1,13 +1,23 @@
 package com.lucasyago.guest.viewmodel
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import com.lucasyago.guest.model.GuestModel
+import com.lucasyago.guest.repository.GuestRepository
 
-class PresentViewModel : ViewModel() {
+class PresentViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is present Fragment"
+    private val repository = GuestRepository.getInstance(application.applicationContext)
+
+    private val listPresentGuests = MutableLiveData<List<GuestModel>>()
+    val presentGuests: LiveData<List<GuestModel>> = listPresentGuests
+
+
+    fun getPresence(){
+        listPresentGuests.value = repository.getAbsent()
     }
-    val text: LiveData<String> = _text
+
+
 }

@@ -28,8 +28,6 @@ class GuestViewHolder(private val bind: RowGuestBinding, private val listener: O
                 .create()
                 .show()
 
-
-
             true
         }
     }
