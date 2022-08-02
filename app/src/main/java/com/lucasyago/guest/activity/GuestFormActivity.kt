@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.lucasyago.guest.R
 import com.lucasyago.guest.constants.DataBaseConstants
 import com.lucasyago.guest.databinding.ActivityGuestFormBinding
-import com.lucasyago.guest.model.GuestModel
+import com.lucasyago.guest.model.Guest
 import com.lucasyago.guest.viewmodel.GuestFormViewModel
 
 class GuestFormActivity : AppCompatActivity(), View.OnClickListener {
@@ -36,7 +36,7 @@ class GuestFormActivity : AppCompatActivity(), View.OnClickListener {
     private fun observe() {
         viewModel.guest.observe(this) {
             binding.editName.setText(it.name)
-            if (it.presence) {
+            if (it.presence == 1) {
                 binding.radioPresence.isChecked = true
             } else {
                 binding.radioAbsent.isChecked = true
@@ -44,8 +44,8 @@ class GuestFormActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         viewModel.saveGuest.observe(this) {
-            if (it != ""){
-                Toast.makeText(applicationContext,it,Toast.LENGTH_SHORT).show()
+            if (it != "") {
+                Toast.makeText(applicationContext, it, Toast.LENGTH_SHORT).show()
                 finish()
             }
         }
@@ -62,10 +62,12 @@ class GuestFormActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View) {
         if (v.id == R.id.button_save) {
             val name = binding.editName.text.toString()
-            val presence = binding.radioPresence.isChecked
+            val presence =  if(binding.radioPresence.isChecked) 1 else 0
 
-            val model = GuestModel(guestId, name, presence)
-            viewModel.save(model)
+            val model = Guest(guestId, name, presence)
+
+            if (viewModel.validateForm(model))
+                viewModel.save(model)
         }
     }
 }

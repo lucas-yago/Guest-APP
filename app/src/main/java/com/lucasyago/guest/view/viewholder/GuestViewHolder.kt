@@ -3,13 +3,13 @@ package com.lucasyago.guest.view.viewholder
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.lucasyago.guest.databinding.RowGuestBinding
-import com.lucasyago.guest.model.GuestModel
+import com.lucasyago.guest.model.Guest
 import com.lucasyago.guest.view.listener.OnGuestListener
 
 class GuestViewHolder(private val bind: RowGuestBinding, private val listener: OnGuestListener) :
     RecyclerView.ViewHolder(bind.root) {
 
-    fun bind(guest: GuestModel) {
+    fun bind(guest: Guest) {
         bind.textName.text = guest.name
 
         bind.textName.setOnClickListener {

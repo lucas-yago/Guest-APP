@@ -4,13 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.lucasyago.guest.databinding.RowGuestBinding
-import com.lucasyago.guest.model.GuestModel
+import com.lucasyago.guest.model.Guest
 import com.lucasyago.guest.view.listener.OnGuestListener
 import com.lucasyago.guest.view.viewholder.GuestViewHolder
 
-class GuestsAdapter : RecyclerView.Adapter<GuestViewHolder>() {
+class GuestsAdapter () : RecyclerView.Adapter<GuestViewHolder>() {
 
-    private var guestList: List<GuestModel> = listOf()
+    private var guestList: List<Guest> = listOf()
     private lateinit var listener: OnGuestListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GuestViewHolder {
@@ -26,7 +26,7 @@ class GuestsAdapter : RecyclerView.Adapter<GuestViewHolder>() {
         return guestList.count()
     }
 
-    fun updatedGuests(list: List<GuestModel>) {
+    fun updatedGuests(list: List<Guest>) {
         guestList = list
         notifyDataSetChanged()
     }

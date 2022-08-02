@@ -4,20 +4,24 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.lucasyago.guest.model.GuestModel
+import com.lucasyago.guest.model.Guest
 import com.lucasyago.guest.repository.GuestRepository
 
 class GuestFormViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository = GuestRepository.getInstance(application)
 
-    private val guestModel = MutableLiveData<GuestModel>()
-    val guest: LiveData<GuestModel> = guestModel
+    private val guestModel = MutableLiveData<Guest>()
+    val guest: LiveData<Guest> = guestModel
     private val _saveGuest = MutableLiveData<String>()
     val saveGuest: LiveData<String> = _saveGuest
 
+    private val listStatusGuest = MutableLiveData<List<Guest>>()
+    val statusGuest: LiveData<List<Guest>> = listStatusGuest
 
-    fun save(guest: GuestModel) {
+    fun validateForm(guest: Guest) = !guest.name.isNullOrEmpty()
+
+    fun save(guest: Guest) {
         if (guest.id == 0) {
             if (repository.insert(guest)) {
                 _saveGuest.value = "Novo convidado adicionado"
@@ -36,5 +40,9 @@ class GuestFormViewModel(application: Application) : AndroidViewModel(applicatio
 
     fun get(id: Int) {
         guestModel.value = repository.get(id)
+    }
+
+    fun getByStatus(status: Int) {
+        listStatusGuest.value = repository.getByStatus(status)
     }
 }

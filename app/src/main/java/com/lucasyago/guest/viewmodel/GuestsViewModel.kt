@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import com.lucasyago.guest.model.Guest
 import com.lucasyago.guest.repository.GuestRepository
 
-class AllGuestsViewModel(application: Application) : AndroidViewModel(application) {
+class GuestsViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository = GuestRepository.getInstance(application.applicationContext)
 

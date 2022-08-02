@@ -15,7 +15,7 @@ class GuestDataBase(context: Context) : SQLiteOpenHelper(context, NAME, null, VE
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL("CREATE TABLE ${DataBaseConstants.GUEST.TABLE_NAME} (" +
                 "${DataBaseConstants.GUEST.COLUMNS.ID} integer primary key autoincrement," +
-                "${DataBaseConstants.GUEST.COLUMNS.NAME} text," +
+                "${DataBaseConstants.GUEST.COLUMNS.NAME} text NOT NULL," +
                 "${DataBaseConstants.GUEST.COLUMNS.PRESENCE} integer);")
     }
 
