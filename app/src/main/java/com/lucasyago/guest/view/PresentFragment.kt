@@ -11,19 +11,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.lucasyago.guest.activity.GuestFormActivity
 import com.lucasyago.guest.constants.DataBaseConstants
 import com.lucasyago.guest.databinding.FragmentPresentBinding
+import com.lucasyago.guest.model.StatusGuest
 import com.lucasyago.guest.view.adapter.GuestsAdapter
 import com.lucasyago.guest.view.listener.OnGuestListener
-import com.lucasyago.guest.viewmodel.PresentViewModel
+import com.lucasyago.guest.viewmodel.GuestsViewModel
 
 class PresentFragment : Fragment() {
 
     private var _binding: FragmentPresentBinding? = null
     private val binding get() = _binding!!
     private val adapter = GuestsAdapter()
-    private lateinit var viewModel: PresentViewModel
+    private lateinit var viewModel: GuestsViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, b: Bundle?): View {
-        viewModel = ViewModelProvider(this)[PresentViewModel::class.java]
+        viewModel = ViewModelProvider(this)[GuestsViewModel::class.java]
         _binding = FragmentPresentBinding.inflate(inflater, container, false)
 
         //layout
@@ -42,7 +43,7 @@ class PresentFragment : Fragment() {
 
             override fun onDelete(id: Int) {
                 viewModel.delete(id)
-                viewModel.getPresence()
+                viewModel.getByStatus(StatusGuest.PRESENCE.status)
             }
         }
 
@@ -55,7 +56,7 @@ class PresentFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.getPresence()
+        viewModel.getByStatus(StatusGuest.PRESENCE.status)
     }
 
     override fun onDestroyView() {
@@ -64,7 +65,7 @@ class PresentFragment : Fragment() {
     }
 
     private fun observer() {
-        viewModel.guests.observe(viewLifecycleOwner) {
+        viewModel.statusGuest.observe(viewLifecycleOwner) {
             adapter.updatedGuests(it)
         }
     }

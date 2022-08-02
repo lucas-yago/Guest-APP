@@ -16,9 +16,6 @@ class GuestFormViewModel(application: Application) : AndroidViewModel(applicatio
     private val _saveGuest = MutableLiveData<String>()
     val saveGuest: LiveData<String> = _saveGuest
 
-    private val listStatusGuest = MutableLiveData<List<Guest>>()
-    val statusGuest: LiveData<List<Guest>> = listStatusGuest
-
     fun validateForm(guest: Guest) = !guest.name.isNullOrEmpty()
 
     fun save(guest: Guest) {
@@ -42,7 +39,4 @@ class GuestFormViewModel(application: Application) : AndroidViewModel(applicatio
         guestModel.value = repository.get(id)
     }
 
-    fun getByStatus(status: Int) {
-        listStatusGuest.value = repository.getByStatus(status)
-    }
 }

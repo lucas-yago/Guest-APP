@@ -11,19 +11,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.lucasyago.guest.activity.GuestFormActivity
 import com.lucasyago.guest.constants.DataBaseConstants
 import com.lucasyago.guest.databinding.FragmentAbsentBinding
+import com.lucasyago.guest.model.StatusGuest
 import com.lucasyago.guest.view.adapter.GuestsAdapter
 import com.lucasyago.guest.view.listener.OnGuestListener
-import com.lucasyago.guest.viewmodel.AbsentViewModel
+import com.lucasyago.guest.viewmodel.GuestsViewModel
 
 class AbsentFragment : Fragment() {
 
     private var _binding: FragmentAbsentBinding? = null
     private val binding get() = _binding!!
     private val adapter = GuestsAdapter()
-    private lateinit var viewModel: AbsentViewModel
+    private lateinit var viewModel: GuestsViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, b: Bundle?): View {
-        viewModel = ViewModelProvider(this)[AbsentViewModel::class.java]
+        viewModel = ViewModelProvider(this)[GuestsViewModel::class.java]
         _binding = FragmentAbsentBinding.inflate(inflater, container, false)
 
         //layout
@@ -42,7 +43,7 @@ class AbsentFragment : Fragment() {
 
             override fun onDelete(id: Int) {
                 viewModel.delete(id)
-                viewModel.getAbsent()
+                viewModel.getByStatus(StatusGuest.ABSENT.status)
             }
         }
 
@@ -55,7 +56,7 @@ class AbsentFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.getAbsent()
+        viewModel.getByStatus(StatusGuest.ABSENT.status)
     }
 
     override fun onDestroyView() {
@@ -63,7 +64,7 @@ class AbsentFragment : Fragment() {
         _binding = null
     }
     private fun observer() {
-        viewModel.guests.observe(viewLifecycleOwner) {
+        viewModel.statusGuest.observe(viewLifecycleOwner) {
             adapter.updatedGuests(it)
         }
     }
