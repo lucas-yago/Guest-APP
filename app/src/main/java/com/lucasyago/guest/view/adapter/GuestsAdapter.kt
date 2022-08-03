@@ -8,7 +8,7 @@ import com.lucasyago.guest.model.Guest
 import com.lucasyago.guest.view.listener.OnGuestListener
 import com.lucasyago.guest.view.viewholder.GuestViewHolder
 
-class GuestsAdapter () : RecyclerView.Adapter<GuestViewHolder>() {
+class GuestsAdapter : RecyclerView.Adapter<GuestViewHolder>() {
 
     private var guestList: List<Guest> = listOf()
     private lateinit var listener: OnGuestListener

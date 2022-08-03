@@ -16,7 +16,7 @@ class GuestFormViewModel(application: Application) : AndroidViewModel(applicatio
     private val _saveGuest = MutableLiveData<String>()
     val saveGuest: LiveData<String> = _saveGuest
 
-    fun validateForm(guest: Guest) = !guest.name.isNullOrEmpty()
+    fun validateForm(guest: Guest) = guest.name.isNotEmpty()
 
     fun save(guest: Guest) {
         if (guest.id == 0) {

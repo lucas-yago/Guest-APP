@@ -5,21 +5,18 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.lucasyago.guest.model.Guest
-import com.lucasyago.guest.model.StatusGuest
 import com.lucasyago.guest.repository.GuestRepository
 
 class GuestsViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository = GuestRepository.getInstance(application.applicationContext)
 
-    private val listAllGuests = MutableLiveData<List<Guest>>()
-    val guests: LiveData<List<Guest>> = listAllGuests
+    private val listGuests = MutableLiveData<List<Guest>>()
+    val guests: LiveData<List<Guest>> = listGuests
 
-    private val listStatusGuests = MutableLiveData<List<Guest>>()
-    val statusGuest: LiveData<List<Guest>> = listStatusGuests
 
     fun getAll() {
-        listAllGuests.value = repository.getAll()
+        listGuests.value = repository.getAll()
     }
 
     fun delete(id: Int) {
@@ -27,6 +24,9 @@ class GuestsViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun getByStatus(status: Int) {
-        listStatusGuests.value = repository.getByStatus(status)
+        val result = repository.getByStatus(status)
+        listGuests.postValue(result)
     }
+
+
 }
