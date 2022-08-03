@@ -1,27 +1,29 @@
 package com.lucasyago.guest.repository
 
 import android.content.Context
-import android.database.sqlite.SQLiteDatabase
-import android.database.sqlite.SQLiteOpenHelper
-import com.lucasyago.guest.constants.DataBaseConstants
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import com.lucasyago.guest.model.Guest
 
-class GuestDataBase(context: Context) : SQLiteOpenHelper(context, NAME, null, VERSION) {
+@Database(entities = [Guest::class], version = 1)
+abstract class GuestDataBase : RoomDatabase() {
+
+    abstract  fun guestDao(): GuestDao
 
     companion object {
-        private const val NAME = "guestdb"
-        private const val VERSION = 1
+        private lateinit var INSTANCE: GuestDataBase
+
+        fun getDataBase(context: Context): GuestDataBase {
+            if (!::INSTANCE.isInitialized) {
+                synchronized(GuestDataBase::class) {
+                    INSTANCE = Room.databaseBuilder(context, GuestDataBase::class.java, "guestdb")
+                        .allowMainThreadQueries()
+                        .build()
+                }
+            }
+            return INSTANCE
+        }
+
     }
-
-    override fun onCreate(db: SQLiteDatabase) {
-        db.execSQL("CREATE TABLE ${DataBaseConstants.GUEST.TABLE_NAME} (" +
-                "${DataBaseConstants.GUEST.COLUMNS.ID} integer primary key autoincrement," +
-                "${DataBaseConstants.GUEST.COLUMNS.NAME} text NOT NULL," +
-                "${DataBaseConstants.GUEST.COLUMNS.PRESENCE} integer);")
-    }
-
-    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        TODO("Not yet implemented")
-    }
-
-
 }
