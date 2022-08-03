@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lucasyago.guest.activity.GuestFormActivity
 import com.lucasyago.guest.constants.DataBaseConstants
-import com.lucasyago.guest.databinding.FragmentPresentBinding
+import com.lucasyago.guest.databinding.FragmentGuestsBinding
 import com.lucasyago.guest.model.StatusGuest
 import com.lucasyago.guest.view.adapter.GuestsAdapter
 import com.lucasyago.guest.view.listener.OnGuestListener
@@ -18,19 +18,25 @@ import com.lucasyago.guest.viewmodel.GuestsViewModel
 
 class PresentFragment : Fragment() {
 
-    private var _binding: FragmentPresentBinding? = null
+    //private var _binding: FragmentPresentBinding? = null
+    private var _binding: FragmentGuestsBinding? = null
     private val binding get() = _binding!!
     private val adapter = GuestsAdapter()
     private lateinit var viewModel: GuestsViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, b: Bundle?): View {
         viewModel = ViewModelProvider(this)[GuestsViewModel::class.java]
-        _binding = FragmentPresentBinding.inflate(inflater, container, false)
+        //_binding = FragmentPresentBinding.inflate(inflater, container, false)
+        _binding = FragmentGuestsBinding.inflate(inflater, container, false)
+
 
         //layout
-        binding.recyclerPresentGuests.layoutManager = LinearLayoutManager(context)
+        //binding.recyclerPresentGuests.layoutManager = LinearLayoutManager(context)
+        binding.recyclerGuests.layoutManager = LinearLayoutManager(context)
         //adapter
-        binding.recyclerPresentGuests.adapter = adapter
+        //binding.recyclerPresentGuests.adapter = adapter
+        binding.recyclerGuests.adapter = adapter
+
 
         val listener = object : OnGuestListener {
             override fun onClick(id: Int) {
